@@ -377,6 +377,28 @@ const leadsRouter = router({
       return { success: true };
     }),
 
+  // Salvar lead do simulador de financiamento (público - lead magnet)
+  saveFromSimulator: publicProcedure
+    .input(z.object({
+      name: z.string(),
+      email: z.string().email(),
+      whatsapp: z.string(),
+      loanAmount: z.number().optional(),
+      propertyType: z.string().optional(),
+      financingMethod: z.enum(["SAC", "PRICE"]).optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const lead = await db.createLead({
+        name: input.name,
+        email: input.email,
+        whatsapp: input.whatsapp,
+        source: "simulador",
+        stage: "novo",
+        notes: `Lead do Simulador - Valor: R$ ${input.loanAmount}, Tipo: ${input.propertyType}, Método: ${input.financingMethod}`,
+      });
+      return { success: true, leadId: lead.id };
+    }),
+
   // Deletar lead (protegido - apenas admin)
   delete: protectedProcedure
     .input(z.object({
@@ -853,6 +875,40 @@ const integrationRouter = router({
         return await db.getAiHistoryByPhone(input.phone, input.limit || 50);
       }
       return [];
+    }),
+
+  // Webhook do N8N para atualizar análise de IA do lead (POST /api/hooks/n8n/lead-update)
+  n8nLeadUpdate: publicProcedure
+    .input(z.object({
+      leadId: z.number(),
+      sentimentScore: z.number().min(0).max(100).optional(),
+      aiSummary: z.string().optional(),
+      tags: z.array(z.string()).optional(),
+      recommendedAction: z.string().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      // Atualizar lead insights
+      const leadInsight = await db.db.insert(db.leadInsights).values({
+        leadId: input.leadId,
+        sentimentScore: input.sentimentScore,
+        aiSummary: input.aiSummary,
+      }).onDuplicateKeyUpdate({
+        set: {
+          sentimentScore: input.sentimentScore,
+          aiSummary: input.aiSummary,
+        },
+      });
+      
+      // Log webhook
+      await db.createWebhookLog({
+        source: "n8n",
+        event: "lead_update",
+        payload: JSON.stringify(input),
+        response: JSON.stringify({ success: true, leadId: input.leadId }),
+        status: "success",
+      });
+      
+      return { success: true, leadId: input.leadId };
     }),
 
   // Salvar interesse do cliente
