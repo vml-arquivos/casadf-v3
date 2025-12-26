@@ -28,8 +28,8 @@ import {
   CheckCircle,
   Clock,
 } from 'lucide-react';
-import { trpc } from '../../_core/trpc';
-import { formatCurrency } from '../../_core/utils';
+import { trpc } from '@/lib/trpc';
+import { formatCurrency } from '@/lib/utils-types';
 
 interface FinancialStats {
   totalRevenue: number;

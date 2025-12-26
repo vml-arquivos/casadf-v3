@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../_core/hooks/useAuth';
-import { trpc } from '../_core/trpc';
-import { formatCurrency } from '../_core/utils';
+import { trpc } from '@/lib/trpc';
+import { formatCurrency } from '@/lib/utils-types';
 import { Building2, DollarSign, LogOut } from 'lucide-react';
 
 interface OwnerProperty {

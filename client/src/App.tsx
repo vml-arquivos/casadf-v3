@@ -31,7 +31,7 @@ import TestImageUpload from "./pages/TestImageUpload";
 import SalesFunnel from "./pages/admin/SalesFunnel";
 import FinancingSimulator from "./pages/FinancingSimulator";
 import SiteCustomization from "./pages/admin/SiteCustomization";
-import FinancialDashboard from "./pages/admin/FinancialDashboard";
+import FinancialDashboardDemo from "./pages/admin/FinancialDashboardDemo";
 import OwnerPortal from "./pages/OwnerPortal";
 
 function Router() {
@@ -145,7 +145,7 @@ function Router() {
       <Route path="/admin/financial">
         {() => (
           <AdminLayout>
-            <FinancialDashboard />
+            <FinancialDashboardDemo />
           </AdminLayout>
         )}
       </Route>

@@ -32,7 +32,7 @@ import {
 import { toast } from 'sonner';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils-types';
 
 // Taxas dos principais bancos que atuam no DF
 const BANKS = [
