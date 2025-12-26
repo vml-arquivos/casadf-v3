@@ -1,0 +1,21 @@
+CREATE TABLE `owners` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`cpfCnpj` varchar(20),
+	`email` varchar(320),
+	`phone` varchar(20),
+	`whatsapp` varchar(20),
+	`address` text,
+	`city` varchar(100),
+	`state` varchar(2),
+	`zipCode` varchar(10),
+	`bankName` varchar(100),
+	`bankAgency` varchar(20),
+	`bankAccount` varchar(30),
+	`pixKey` varchar(255),
+	`notes` text,
+	`active` boolean DEFAULT true,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `owners_id` PRIMARY KEY(`id`)
+);

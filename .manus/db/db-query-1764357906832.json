@@ -1,0 +1,35 @@
+{
+  "query": "SELECT id, title, mainImage FROM properties LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user oiKh964ayMjfi5A.root --database V9M2N8LvRbCitfQ7FpEV63 --execute SELECT id, title, mainImage FROM properties LIMIT 5;",
+  "rows": [
+    {
+      "id": "7",
+      "title": "Mansão Moderna no Lago Sul",
+      "mainImage": "NULL"
+    },
+    {
+      "id": "8",
+      "title": "Cobertura Duplex no Sudoeste",
+      "mainImage": "NULL"
+    },
+    {
+      "id": "9",
+      "title": "Casa de Alto Padrão no Park Way",
+      "mainImage": "NULL"
+    },
+    {
+      "id": "10",
+      "title": "Apartamento de Luxo no Setor Noroeste",
+      "mainImage": "NULL"
+    },
+    {
+      "id": "11",
+      "title": "Mansão com Campo de Golfe Privativo",
+      "mainImage": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tmainImage\n7\tMansão Moderna no Lago Sul\tNULL\n8\tCobertura Duplex no Sudoeste\tNULL\n9\tCasa de Alto Padrão no Park Way\tNULL\n10\tApartamento de Luxo no Setor Noroeste\tNULL\n11\tMansão com Campo de Golfe Privativo\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 101
+}

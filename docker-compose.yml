@@ -1,0 +1,48 @@
+services:
+  # ==========================================
+  # APLICAÇÃO (Seu Dockerfile Customizado)
+  # ==========================================
+  app:
+    container_name: casadf-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    env_file:
+      - .env
+    depends_on:
+      mysql-host:
+        condition: service_healthy
+    networks:
+      - casadf-network
+
+  # ==========================================
+  # BANCO DE DADOS (MySQL 8 - Alinha com Drizzle mysql2)
+  # ==========================================
+  mysql-host:
+    image: mysql:8.0
+    container_name: casadf-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: casadf
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - casadf-network
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -prootpassword --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql_data:
+
+networks:
+  casadf-network:
+    driver: bridge

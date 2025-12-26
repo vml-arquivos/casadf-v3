@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM properties WHERE id > 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user oiKh964ayMjfi5A.root --database V9M2N8LvRbCitfQ7FpEV63 --execute DELETE FROM properties WHERE id > 5;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 61
+}
